@@ -1,3 +1,71 @@
+class Display extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return <div className="display"></div>;
+  }
+}
+
+class VolumeSlider extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    $(function () {
+      $("#slider").slider({
+        min: 0,
+        max: 100,
+        value: 0,
+        range: "min",
+        slide: function (event, ui) {
+          console.log(ui.value / 100);
+        },
+      });
+    });
+  }
+
+  render() {
+    return <div id="slider"></div>;
+  }
+}
+
+class Switch extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div className="switch">
+        <div>{this.props.name}</div>
+        <div className="inner-switch">
+          <div className="switch-button"></div>
+        </div>
+      </div>
+    );
+  }
+}
+
+class Controls extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div className="controls">
+        <Switch name="Power" />
+        <Display />
+        <VolumeSlider />
+        <Switch name="Bank" />
+      </div>
+    );
+  }
+}
+
 class DrumPad extends React.Component {
   constructor(props) {
     super(props);
@@ -23,7 +91,7 @@ class PadGrid extends React.Component {
     this.props.drums
       .filter((drum) => drum.bank == "heater")
       .forEach((drum) => pads.push(<DrumPad drum={drum} key={drum.id} />));
-    return <div class="pad-grid">{pads}</div>;
+    return <div className="pad-grid">{pads}</div>;
   }
 }
 
@@ -36,6 +104,7 @@ class DrumMachine extends React.Component {
     return (
       <div id="drum-machine">
         <PadGrid drums={this.props.drums} />
+        <Controls />
       </div>
     );
   }
