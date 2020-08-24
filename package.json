@@ -1,0 +1,24 @@
+{
+  "name": "drum-machine",
+  "version": "1.0.0",
+  "description": "Here is the statement of the exercise:",
+  "main": "drum_machine.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeremies/drum-machine.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeremies/drum-machine/issues"
+  },
+  "homepage": "https://github.com/jeremies/drum-machine#readme",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-react-app": "^3.1.2"
+  }
+}

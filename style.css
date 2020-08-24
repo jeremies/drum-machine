@@ -16,6 +16,21 @@ body {
   background: #986131;
   display: flex;
   flex-wrap: wrap; }
+  #drum-machine .title-box {
+    flex: 0 0 100%;
+    width: 0;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; }
+    #drum-machine .title-box .title {
+      font-size: 25px; }
+    #drum-machine .title-box .subtitle {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end; }
+    #drum-machine .title-box a:hover {
+      color: #a9a9a9; }
   #drum-machine .pad-grid {
     display: grid;
     grid-gap: 1px;
@@ -25,10 +40,11 @@ body {
       height: 75px;
       box-shadow: 3px 3px 3px black;
       margin: 5px;
-      background-color: #999;
+      background-color: #693f1e;
       border-radius: 3px;
       text-align: center;
-      line-height: 75px; }
+      line-height: 75px;
+      cursor: pointer; }
   #drum-machine .controls {
     width: 200px;
     margin: auto;
@@ -50,8 +66,6 @@ body {
           background: red;
           border-radius: 3px;
           cursor: pointer; }
-        #drum-machine .controls .switch .inner-switch .right {
-          float: right; }
     #drum-machine .controls #slider {
       background: #2d1c03;
       border-color: rgba(243, 153, 90, 0.5);
@@ -66,9 +80,13 @@ body {
         background: red;
         cursor: pointer;
         outline: none; }
+      #drum-machine .controls #slider.ui-state-disabled {
+        opacity: 1 !important; }
     #drum-machine .controls .display {
       margin-top: 15px;
       border-radius: 3px;
       background: #693f1e;
       height: 40px;
       line-height: 40px; }
+  #drum-machine .right {
+    float: right; }
