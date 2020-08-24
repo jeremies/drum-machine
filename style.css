@@ -26,7 +26,9 @@ body {
       box-shadow: 3px 3px 3px black;
       margin: 5px;
       background-color: #999;
-      border-radius: 3px; }
+      border-radius: 3px;
+      text-align: center;
+      line-height: 75px; }
   #drum-machine .controls {
     width: 200px;
     margin: auto;
@@ -48,6 +50,8 @@ body {
           background: red;
           border-radius: 3px;
           cursor: pointer; }
+        #drum-machine .controls .switch .inner-switch .right {
+          float: right; }
     #drum-machine .controls #slider {
       background: #2d1c03;
       border-color: rgba(243, 153, 90, 0.5);
@@ -66,4 +70,5 @@ body {
       margin-top: 15px;
       border-radius: 3px;
       background: #693f1e;
-      height: 30px; }
+      height: 40px;
+      line-height: 40px; }

@@ -31,6 +31,8 @@ body {
       margin: 5px;
       background-color: #999;
       border-radius: 3px;
+      text-align: center;
+      line-height: 75px;
     }
   }
 
@@ -56,6 +58,9 @@ body {
           background: red;
           border-radius: 3px;
           cursor: pointer;
+        }
+        .right {
+          float: right;
         }
       }
     }
@@ -84,7 +89,8 @@ body {
       margin-top: 15px;
       border-radius: 3px;
       background: #693f1e;
-      height: 30px;
+      height: 40px;
+      line-height: 40px;
     }
   }
 }

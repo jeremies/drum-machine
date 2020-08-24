@@ -4,7 +4,11 @@ class Display extends React.Component {
   }
 
   render() {
-    return <div className="display"></div>;
+    return (
+      <div id="display" className="display">
+        {this.props.display}
+      </div>
+    );
   }
 }
 
@@ -14,17 +18,19 @@ class VolumeSlider extends React.Component {
   }
 
   componentDidMount() {
-    $(function () {
-      $("#slider").slider({
-        min: 0,
-        max: 100,
-        value: 0,
-        range: "min",
-        slide: function (event, ui) {
-          console.log(ui.value / 100);
-        },
-      });
-    });
+    $(
+      function () {
+        $("#slider").slider({
+          min: 0,
+          max: 100,
+          value: this.props.volume,
+          range: "min",
+          slide: function (event, ui) {
+            console.log(ui.value / 100);
+          },
+        });
+      }.bind(this)
+    );
   }
 
   render() {
@@ -42,7 +48,9 @@ class Switch extends React.Component {
       <div className="switch">
         <div>{this.props.name}</div>
         <div className="inner-switch">
-          <div className="switch-button"></div>
+          <div
+            className={`switch-button ${this.props.value ? "right" : ""}`}
+          ></div>
         </div>
       </div>
     );
@@ -57,10 +65,10 @@ class Controls extends React.Component {
   render() {
     return (
       <div className="controls">
-        <Switch name="Power" />
-        <Display />
-        <VolumeSlider />
-        <Switch name="Bank" />
+        <Switch name="Power" value={this.props.isOn} />
+        <Display display={this.props.display} />
+        <VolumeSlider volume={this.props.volume} />
+        <Switch name="Bank" value={this.props.bank == "smooth-piano"} />
       </div>
     );
   }
@@ -69,13 +77,38 @@ class Controls extends React.Component {
 class DrumPad extends React.Component {
   constructor(props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(e) {
+    this.play();
+  }
+
+  play() {
+    $(`#${this.props.drum.id}`)[0].play();
+    this.props.onDisplayChange(this.props.drum.name);
+  }
+
+  componentDidMount(e) {
+    $(document).keypress(
+      function (e) {
+        if (e.key.toUpperCase() == this.props.drum.id) {
+          this.play();
+        }
+      }.bind(this)
+    );
   }
 
   render() {
     const drum = this.props.drum;
     return (
-      <div id="" className="drum-pad">
+      <div
+        id={drum.name.replace(/ /g, "-")}
+        className="drum-pad"
+        onClick={this.handleClick}
+      >
         {drum.id}
+        <audio src={drum.src} id={drum.id} className="clip" />
       </div>
     );
   }
@@ -90,7 +123,15 @@ class PadGrid extends React.Component {
     const pads = [];
     this.props.drums
       .filter((drum) => drum.bank == "heater")
-      .forEach((drum) => pads.push(<DrumPad drum={drum} key={drum.id} />));
+      .forEach((drum) =>
+        pads.push(
+          <DrumPad
+            drum={drum}
+            key={drum.id}
+            onDisplayChange={this.props.onDisplayChange}
+          />
+        )
+      );
     return <div className="pad-grid">{pads}</div>;
   }
 }
@@ -98,13 +139,30 @@ class PadGrid extends React.Component {
 class DrumMachine extends React.Component {
   constructor(props) {
     super(props);
+    this.onDisplayChange = this.onDisplayChange.bind(this);
+    this.state = { volume: 40, isOn: true, bank: "heater", display: "" };
+  }
+
+  onDisplayChange(text) {
+    this.setState({ display: text });
   }
 
   render() {
     return (
       <div id="drum-machine">
-        <PadGrid drums={this.props.drums} />
-        <Controls />
+        <PadGrid
+          volume={this.state.volume}
+          isOn={this.state.isOn}
+          bank={this.state.bank}
+          drums={this.props.drums}
+          onDisplayChange={this.onDisplayChange}
+        />
+        <Controls
+          volume={this.state.volume}
+          isOn={this.state.isOn}
+          bank={this.state.bank}
+          display={this.state.display}
+        />
       </div>
     );
   }
